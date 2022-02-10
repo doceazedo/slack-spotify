@@ -23,13 +23,19 @@ let nowPlaying = null;
 let lunching = false;
 
 const updateStatus = async (status_text, status_emoji, status_expiration = 0) => {
-  return await web.users.profile.set({
-    profile: {
-      status_text,
-      status_emoji,
-      status_expiration
-    }
-  });
+  try {
+    const status = await web.users.profile.set({
+      profile: {
+        status_text,
+        status_emoji,
+        status_expiration
+      }
+    });
+    return status;
+  } catch (error) {
+    console.log('ERRO:')
+    console.log(error);
+  }
 }
 
 const getCurrentSong = async () => {

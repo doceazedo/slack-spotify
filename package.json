@@ -1,11 +1,24 @@
 {
   "name": "slack-spotify",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "dev": "nodemon src/index.ts"
+  },
   "license": "MIT",
   "dependencies": {
-    "@slack/web-api": "^6.5.0",
-    "dotenv": "^10.0.0",
+    "@slack/web-api": "^6.6.0",
+    "cat-loggr": "^1.2.2",
+    "dotenv": "^16.0.0",
     "spotify-web-api-node": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/spotify-web-api-node": "^5.0.7",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.5.0",
+    "typescript": "^4.5.5"
   }
 }
