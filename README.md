@@ -1,5 +1,10 @@
-# 🎵 slack-spotify
-Let your co-workers know what you're listening to!
+<h1 align="center">
+  Slack + Spotify = 💚🎵
+</h1>
+
+<p align="center">
+    Let your Slack co-workers know what you're listening on Spotify!
+</p>
 
 <p align="center">
   <img src="./assets/screenshot.png">
