@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import process from 'process';
 import { getCurrentPlayingTrack, clearStatus, updateStatus } from './services';
-import { loggr, getTranslations } from './utils';
+import { loggr, getTranslations, getTrackInfo } from './utils';
 import type { Track } from './types';
 
 const lang = getTranslations(process.env?.LANGUAGE || 'en_US');
@@ -39,17 +39,20 @@ const main = async () => {
   // If the song remains paused, ignore it
   if (!nowPlaying?.isPlaying && !currentTrack?.isPlaying) return;
 
+  // Get simplified track info with filtered badwords
+  const trackInfo = getTrackInfo(currentTrack);
+
   // Save the new current track and update status
   nowPlaying = currentTrack;
   const status = lang.status
-    .replace('[artist]', nowPlaying?.artists?.[0].name || '')
-    .replace('[track]', nowPlaying?.name || '');
+    .replace('[artist]', trackInfo.artist)
+    .replace('[track]', trackInfo.title);
   updateStatus(status, statusEmoji || '');
 
   // Log the newly updated updated track
   const logMessage = lang.trackUpdated
-    .replace('[artist]', nowPlaying?.artists?.[0]?.name || '')
-    .replace('[track]', nowPlaying?.name || '');
+    .replace('[artist]', trackInfo.artist)
+    .replace('[track]', trackInfo.title);
   loggr.info(logMessage);
 }
 
