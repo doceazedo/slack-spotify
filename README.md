@@ -1,7 +1,9 @@
 # 🎵 slack-spotify
 Let your co-workers know what you're listening to!
 
-![](assets/screenshot.png)
+<p align="center">
+  <img src="./assets/screenshot.png">
+</p>
 
 ## Installation
 
