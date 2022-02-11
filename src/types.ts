@@ -16,4 +16,6 @@ export type Language = {
   trackUpdated: string;
   appStarted: string;
   appClosed: string;
+  spotifyTokenRefreshing: string;
+  spotifyTokenRefreshed: string;
 };

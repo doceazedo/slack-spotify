@@ -1,8 +1,9 @@
 import 'dotenv/config';
 import SpotifyWebApi from 'spotify-web-api-node';
-import { hasPassedTwoHours, loggr } from '../utils';
+import { getTranslations, hasPassedAnHour, loggr } from '../utils';
 import type { Track } from '../types';
 
+const lang = getTranslations(process.env?.LANGUAGE || 'en_US');
 const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN;
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -22,12 +23,14 @@ const handleError = (error: any) => {
 }
 
 const refreshAccessToken = async () => {
-  if (!hasPassedTwoHours(lastRefresh)) return;
+  if (!hasPassedAnHour(lastRefresh)) return;
+  loggr.warn(lang.spotifyTokenRefreshing);
 
   try {
     const spotifyTokens = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(spotifyTokens.body.access_token);
     lastRefresh = new Date();
+    loggr.info(lang.spotifyTokenRefreshed);
   } catch (error) {
     handleError(error);
   }

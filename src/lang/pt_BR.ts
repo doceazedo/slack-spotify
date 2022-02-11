@@ -9,4 +9,6 @@ export const pt_BR: Language = {
   trackUpdated: 'Tocando agora: "[artist] - [track]" 🎵',
   appStarted: 'Iniciado, é hora do rock! 🤘',
   appClosed: 'Limpando status e finalizando... 👋',
+  spotifyTokenRefreshing: 'Atualizando token do Spotify...',
+  spotifyTokenRefreshed: 'Token do Spotify atualizado com sucesso!',
 };

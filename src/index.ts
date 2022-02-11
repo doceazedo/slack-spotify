@@ -66,4 +66,4 @@ process.on('SIGINT', async () => {
 // Start the app
 main();
 setInterval(main, interval);
-loggr.info(lang.appStarted);
+loggr.init(lang.appStarted);
