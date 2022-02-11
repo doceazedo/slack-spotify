@@ -8,23 +8,12 @@ const filter = process.env?.FILTER_BADWORDS == 'true' ? true : false;
 const separators = ['.', ',', ';', ':', '-'];
 
 const filterBadwords = (str: string) => {
-  let words = str.split(' ');
-  words.forEach((word, i) => {
-    if (badwords.includes(word.toLowerCase())) {
-      words[i] = '*'.repeat(word.length);
-      return;
-    }
-    
-    // This will help filter words followed by a comma or something like that
-    if (
-      separators.includes(word.charAt(word.length - 1)) &&
-      badwords.includes(word.slice(0, -1).toLowerCase())
-    ) {
-      words[i] = '*'.repeat(word.length - 1) + word.charAt(word.length - 1);
-      return;
-    }
+  badwords.forEach((badword) => {
+    const regex = new RegExp(`(?<![A-Za-z0-9])${badword}(?![A-Za-z0-9])`, 'gi');
+    str = str.replace(regex, '*'.repeat(badword.length));
   });
-  return words.join(' ');
+
+  return str;
 }
 
 export const getTrackInfo = (track: SpotifyApi.TrackObjectFull | null): TrackInfo => {
