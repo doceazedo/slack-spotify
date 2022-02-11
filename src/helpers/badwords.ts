@@ -14,6 +14,8 @@ const englishBadwords = [
   'pedophile',
   'pussy',
   'sex',
+  'slut',
+  'throat',
   'tit',
   'tits',
   'titties',
