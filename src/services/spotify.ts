@@ -24,13 +24,18 @@ const handleError = (error: any) => {
 
 const refreshAccessToken = async () => {
   if (!hasPassedAnHour(lastRefresh)) return;
-  loggr.warn(lang.spotifyTokenRefreshing);
+
+  // Is this the first time refreshing the token?
+  const loggrInfo = lastRefresh.getTime() ? loggr.warn : loggr.init;
+  const loggrWarn = lastRefresh.getTime() ? loggr.info : loggr.init;
+
+  loggrWarn(lang.spotifyTokenRefreshing);
 
   try {
     const spotifyTokens = await spotifyApi.refreshAccessToken();
     spotifyApi.setAccessToken(spotifyTokens.body.access_token);
     lastRefresh = new Date();
-    loggr.info(lang.spotifyTokenRefreshed);
+    loggrInfo(lang.spotifyTokenRefreshed);
   } catch (error) {
     handleError(error);
   }

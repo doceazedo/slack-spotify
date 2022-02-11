@@ -5,7 +5,6 @@ import type { TrackInfo } from '../types';
 
 const lang = getTranslations(process.env?.LANGUAGE || 'en_US');
 const filter = process.env?.FILTER_BADWORDS == 'true' ? true : false;
-const separators = ['.', ',', ';', ':', '-'];
 
 const filterBadwords = (str: string) => {
   badwords.forEach((badword) => {
