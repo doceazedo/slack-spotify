@@ -2,6 +2,8 @@
 
 const englishBadwords = [
   'bitch',
+  'boob',
+  'boobs',
   'cum',
   'cumming',
   'dick',
@@ -9,15 +11,13 @@ const englishBadwords = [
   'fucked',
   'fucking',
   'nude',
+  'pedophile',
   'pussy',
   'sex',
-  'vagina',
   'tit',
   'tits',
-  'pedophile',
   'titties',
-  'boob',
-  'boobs',
+  'vagina',
 ];
 
 const portugueseBadwords = [
