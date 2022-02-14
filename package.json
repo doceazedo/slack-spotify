@@ -13,9 +13,11 @@
     "@slack/web-api": "^6.6.0",
     "chalk": "4.1.2",
     "dotenv": "^16.0.0",
+    "node-fetch": "2",
     "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
+    "@types/node-fetch": "2.x",
     "@types/spotify-web-api-node": "^5.0.7",
     "nodemon": "^2.0.15",
     "ts-node": "^10.5.0",

@@ -1,16 +1,50 @@
 import 'dotenv/config';
 import process from 'process';
-import { getCurrentPlayingTrack, clearStatus, updateStatus } from './services';
+import { getCurrentPlayingTrack, clearStatus, updateStatus, getCurrentPlayingBeatmap } from './services';
 import { loggr, getTranslations, getTrackInfo } from './utils';
-import type { Track } from './types';
+import type { Track, TrackInfo } from './types';
 
 const lang = getTranslations(process.env?.LANGUAGE || 'en_US');
 const statusEmoji = process.env?.SONG_EMOJI;
 const interval = 5000;
 
 let nowPlaying: Track | null = null;
+let nowPlayingOsu: TrackInfo | null = null;
 
 const main = async () => {
+  if (process.argv.slice(2)?.[0] == '--osu') {
+    const currentMap = await getCurrentPlayingBeatmap();
+
+    // If nothing is playing, clear status
+    if (currentMap == null && nowPlayingOsu) {
+      nowPlayingOsu = null;
+      loggr.info(lang.nothingPlaying);
+      clearStatus();
+      return;
+    }
+
+    // If both tracks have the same artist and title, ignore it
+    if (
+      currentMap.artist == nowPlayingOsu?.artist &&
+      currentMap.title == nowPlayingOsu?.title
+    ) return;
+
+    // Save the new current track and update status
+    nowPlayingOsu = currentMap;
+    const status = lang.status
+      .replace('[artist]', currentMap.artist)
+      .replace('[track]', currentMap.title);
+    updateStatus(status, statusEmoji || '');
+
+    // Log the newly updated updated track
+    const logMessage = lang.trackUpdated
+      .replace('[artist]', currentMap.artist)
+      .replace('[track]', currentMap.title);
+    loggr.info(logMessage);
+
+    return;
+  }
+
   const currentTrack = await getCurrentPlayingTrack();
 
   // If nothing is playing, clear status
